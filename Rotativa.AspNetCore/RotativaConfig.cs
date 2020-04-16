@@ -38,7 +38,19 @@ namespace Rotativa.AspNetCore
 
             _RotativaPath = rotativaPath;
         }
+       
+        //If you usign asp.net core 3.1 or later use 
+         public static void Setup(IWebHostEnvironment env, string wkhtmltopdfRelativePath = "Rotativa") 
+        {
+            var rotativaPath = Path.Combine(env.WebRootPath, wkhtmltopdfRelativePath);
 
+            if (!Directory.Exists(rotativaPath))
+            {
+                throw new ApplicationException("Folder containing wkhtmltopdf.exe not found, searched for " + rotativaPath);
+            }
+
+            _RotativaPath = rotativaPath;
+        }
 
         /// <summary>
         /// Setup Rotativa library
